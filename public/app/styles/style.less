@@ -1,0 +1,181 @@
+@import 'management.less';
+@import 'main.less';
+@import 'sidenav.less';
+@import 'nav.less';
+@import 'cart.less';
+
+body {
+    background: #FEFEFE;
+
+    section {
+    	margin-bottom: 15px;
+    }
+
+    .secondary-text {
+    	color: grey;
+    }
+
+    .section-header {
+    	font-weight: 600;
+    }
+
+    .black-text {
+        color: black;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+
+    footer {
+        height: 300px;
+    }
+
+    .nav-wrapper {
+        .menu-toggle {
+            position: absolute;
+            left: 20px;
+            top: 0px;
+            width: 40px;
+            height: 40px;
+            color: white;
+            z-index: 77;
+            cursor: pointer;
+
+            @media (min-width: 993px) {
+                display: none;
+            }
+
+            @media (max-width: 992px) {
+                display: inline-block;
+            }
+
+        }
+    }
+
+    .medium-container {
+       // width: 85%;
+    }
+
+    nav {
+        background: #CDD6DD;
+        > .nav-wrapper > *,
+        > .nav-wrapper > ul li a {
+            color: #444 !important;
+        }
+    }
+
+    .site-wrapper {
+        #main-content {
+            @media (min-width: 993px) {
+                margin-left: 270px;
+                margin-right: 150px;
+            }
+
+            @media (max-width: 992px) {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+            
+        }
+
+        position: relative;
+
+       // display: flex;
+    }
+
+
+    .background-picture {
+        width: 100%;
+        height: 100%;
+        background-size:cover;
+        position: relative;
+
+        .slides {
+
+            li {
+                .overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    background: rgba(0,0,0,0.35);
+                }
+            }
+        }
+
+        .indicators {
+            display: none;
+        }
+
+        .message {
+            position: absolute;
+
+            @media (min-width: 1024px) {
+                top: 0px;
+                padding: 120px 100px 50px;
+            }
+
+            @media (max-width: 1023px) {
+                right: 0px;
+                padding: 50px 100px 50px;
+            }
+            
+            left: 0;
+            display: flex;
+            
+            z-index: 10;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            bottom: 0px;
+
+        	.contact-info {
+        		display: inline-block;
+
+	        	.company-name {
+	        		font-size: 24px;
+	        	}
+
+                .mailto { 
+                    color: white;
+                }
+	        }
+
+
+        	.slogan {
+        		font-size: 40px;
+        		width: 80%;
+        		text-align: center;
+        	}	
+        }
+
+        &.slider {
+
+            .caption {
+
+                z-index: 11;
+            }
+
+        }
+
+        .slogan {
+                position: absolute;
+                z-index: 10;
+                display: none;
+                top: 50%;
+                color: white;
+                font-size: 40px;
+                left:calc(~'50% - 200px');
+
+        }
+    }
+
+
+    #signup-form,
+    #signin-form {
+        max-width: 450px;
+        margin: 0 auto;
+        padding: 40px;
+    }
+}

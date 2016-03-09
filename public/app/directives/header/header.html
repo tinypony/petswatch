@@ -1,0 +1,25 @@
+<div class="navbar-fixed">
+	<nav>
+	    <div class="nav-wrapper">
+	      <div data-activates="slide-out" class="menu-toggle button-collapse"><i class="fa fa-bars"></i></div>
+	      <a href="#/" class="brand-logo">VA Moto</a>
+	      <ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <li>
+	        	<a class="cart-item" href="#/cart">{{'menu.cart' | translate}}<span class="badge">{{productsCount}}</span></a>
+	        </li>
+	        <li ng-if="admin">
+	        	<a class="admin" href="#/admin">{{'menu.admin' | translate}}</a>
+	        </li>
+	        <li class="pointer">
+	        	<a href="#/signin" ng-if="!authenticated">{{'menu.signin' | translate}}</a>
+	        	<a class="dropdown-button user-dropdown" ng-if="authenticated" data-activates="dropdown1" data-beloworigin="true" data-constrainwidth="true">My account<i class="material-icons right">arrow_drop_down</i></a>
+	        	<ul ng-if="authenticated" id="dropdown1" class="dropdown-content">
+				  <li><a href="#/settings">{{'menu.dropdown.settings' | translate}}</a></li>
+				  <li><a href="#/my_orders">{{'menu.dropdown.orders' | translate}}</a></li>
+				  <li><a href="#/" ng-click="signout()">{{'menu.dropdown.signout' | translate}}</a></li>
+				</ul>
+	        </li>
+	      </ul>
+	    </div>
+	</nav>
+</div>

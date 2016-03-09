@@ -1,0 +1,49 @@
+<h2>Shopping cart</h2>
+<div class="shopping-cart row">
+	<div class="items col l8 m8 s12">
+		<div class="no-items" ng-if="!order.products.length">
+			<h2 class="empty-message">You don't have any items</h2>
+		</div>
+		<div class="card-panel cart-item" ng-repeat="prod in order.products">
+			<div class="incart-product">
+				<div class="picture-container">
+					<img class="product-picture" ng-src="{{prod && prod.product.image_url || ''}}"></img>
+				</div>	
+				<div class="info-container">
+					<div class="product-name">{{prod.product.manufacturer}} {{prod.product.model}}</div>
+					<div class="product-count inpul-field">
+						<label for="{{prod.product._id}}-count">Amount</label>
+						<input id="{{prod.product._id}}-count" min="1" value="{{prod.count}}" type="number" ng-model="prod.count"/>
+					</div>
+				</div>
+				<div class="price">
+					{{ (prod.product.attributes.price | number:2) + "€"}}
+				</div>
+			</div>
+			<div class="row">
+				<a class="col l3 m3 s6 offset-l9 offset-m9 remove" ng-click="removeProduct(prod)">Remove</a>
+			</div>
+		</div>
+	</div>
+	<div class="pushpin-placeholder col hide-on-small-only">
+		<div class="subtotal-pushpin">
+			<div class="card-panel">
+				<div class="entry">
+					<label class="key">Products</label>
+					<label class="value">{{(getProductsPrice() | number:2) + "€"}}</label>
+				</div>
+				<div class="entry">
+					<label class="key">Shipping</label>
+					<label class="value">Free</label>
+				</div>
+				<div class="hline"></div>
+				<div class="entry subtotal">
+					<label class="key">Sub total</label>
+					<label class="value">{{(getSubtotal() | number:2) + "€"}}</label>
+				</div>
+			</div>
+			<button class="btn checkout" ng-if="order.products.length" ng-click="saveAndCheckout()">Checkout</button>
+			<button class="btn checkout disabled" ng-if="!order.products.length">Checkout</button>
+		</div>
+	</div>
+</div>

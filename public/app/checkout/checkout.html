@@ -1,0 +1,134 @@
+<h2>Order checkout</h2>
+<div class="card-panel cart-list">
+	<h4>Products</h4>
+	<div class="incart-product" ng-repeat="prod in order.products">
+		<div class="info-container">
+			<div class="product-manufacturer">{{prod.product.manufacturer}} {{prod.product.model}}</div>
+			<div class="product-count">
+				<label>Amount</label>
+				<label>{{prod.count}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="subtotal">
+		<label class="field-title">Subtotal</label>
+		<label class="field">{{getSubtotal()}}</label>
+	</div>
+</div>
+
+<div class="card-panel">
+	<div class="row">
+	  	<form class="col l3 m4 s12" action="#">
+	  		<h5>Delivery method</h5>
+		    <p>
+		      <input class="with-gap" name="delivery_method" type="radio" value="pickup" id="delivery_option2" ng-model="order.delivery.method"/>
+		      <label class="radio-label"  for="delivery_option2">Pick up</label>
+
+		      <label class="explanation">You will pick up your order from our warehouse when it is available</label>
+		    </p>
+		    <p>
+		      <input class="with-gap" name="delivery_method" type="radio" value="courier" id="delivery_option1" ng-model="order.delivery.method"/>
+		      <label class="radio-label" for="delivery_option1">Courier</label>
+
+		      <label class="explanation">The order will be delivered by a courier to your door</label>
+		    </p>
+	  	</form>
+
+	  	<div ng-if="order.delivery.method === 'pickup'" class="delivery_address_form col l6 m6 s12">
+			<h5 class="form-title">Our address</h5>
+			<div class="street-address">Foobarkatu, 42</div>
+			<div class="city">00100, Lappeenranta</div>			
+		</div>
+
+		<div ng-if="order.delivery.method === 'courier'" class="delivery_address_form col l6 m6 s12">
+			<h5 class="form-title">Delivery address</h5>
+			<div class="input-field">
+				<input id="checkout_fullname" type="text" name="fullname"/>
+				<label for="checkout_fullname">Full name</label>
+			</div>
+
+			<div class="input-field">
+				<label for="checkout_street_address">Street address</label>
+				<input id="checkout_street_address" type="text" name="street_address"/>
+			</div>
+
+			<div class="input-field">
+				<label for="checkout_postal_code">Postal code</label>
+				<input id="checkout_postal_code" type="text" name="postal_code"/>		
+			</div>
+
+			<div class="input-field">
+				<label for="checkout_city">City</label>
+				<input id="checkout_city" type="text" name="city"/>		
+			</div>
+
+			<div class="input-field">
+				<label for="checkout_country">Country</label>
+				<input id="checkout_country" type="text" name="country"/>		
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card-panel">
+	<div class="row">
+	  	<form class="col l3 m4 s12" action="#">
+	  		<h5 class="form-title">Payment method</h5>
+		    <p>
+		      <input class="with-gap" name="payment_method" type="radio" value="credit_card" id="payment_option1" ng-model="order.payment.method"/>
+		      <label class="radio-label"  for="payment_option1">Credit card</label>
+		      <label class="explanation">You will be charged from your credit card</label>
+		    </p>
+		    <p>
+		      <input class="with-gap" name="payment_method" type="radio" value="paypal" id="payment_option2" ng-model="order.payment.method"/>
+		      <label class="radio-label"  for="payment_option2">Paypal</label>
+		      <label class="explanation">Use Paypal</label>
+		    </p>
+		    <p>
+		      <input class="with-gap" name="payment_method" type="radio" value="onpickup" id="payment_option3" ng-model="order.payment.method"/>
+		      <label class="radio-label"  for="payment_option3">Payment on pickup</label>
+		      <label class="explanation">You will pay for your order on pickup from our warehouse</label>
+		    </p>
+		    <p>
+		      <input class="with-gap" name="payment_method" type="radio" value="bank_transfer" id="payment_option4" ng-model="order.payment.method"/>
+		      <label class="radio-label"  for="payment_option4">Bank transfer</label>
+		      <label class="explanation">Directly transfer money from your bank (only Finnish banks)</label>
+		    </p>
+	  	</form>
+
+	  	<div ng-if="order.payment.method === 'credit_card'" class="credit_card_form col l6 m6 s12">
+			<h5 class="form-title">Credit card details</h5>
+			<div class="row">
+				<div class="input-field col l12 m12 s12">
+					<input id="card_holder" type="text" ng-model="order.payment.card.holder" />
+					<label for="card_holder" class="active">Card holder name</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col l12 m12 s12">
+					<input id="card_number" type="text" ng-model="order.payment.card.num" cc-format novalidate cc-number cc-type="cardType" />
+					<label for="card_number" class="active">Card number</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col l5 m6 s6 input-field expiration-input">
+					<label class="active">Expires</label>
+					<div cc-exp class="row">
+					  <input class="col l5 m4 s3" placeholder="MM" type="text" ng-model="order.payment.card.exp_month" cc-exp-month />
+					  <span class="exp-separator col">/</span>
+					  <input class="col l5 m4 s3" placeholder="YY" type="text" ng-model="order.payment.card.exp_year" cc-exp-year />
+					</div>
+				</div>
+				<div class="col l5 m6 s6 input-field offset-l2">
+					<input id="card_cvc" type="text" ng-model="order.payment.card.cvc" cc-type="cardNumber.$ccType" />
+					<label for="card_cvc" class="active">Security code (CVC)</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="order-button btn-wave btn" ng-click="checkout()">Check out</div>
+</div>

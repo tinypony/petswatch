@@ -1,0 +1,45 @@
+<div class="main-page">
+	<h2 class="header">New arrivals</h2>
+	<div class="product-display-grid row">
+    <div class="col s12 m4 l2" ng-repeat="prod in newAdditions">
+      <div class="product-show-case card-pane">
+        <div class="padded-part">
+          <div class="product-image card-pane">
+            <img ng-src="{{prod && prod.image_url || ''}}">
+          </div>
+          <div class="product-details">
+          	<div class="product-manufacturer black-text">{{prod.manufacturer}}</div> 
+            <div class="product-model">{{prod.model}}</div>
+            <div class="product-price">{{prod.price | currency:"&euro;"}}</div>
+            <p class="product-description">{{prod.description}}</p>
+          </div>
+        </div>
+        <div class="buy-action waves-effect waves-light btn" ng-click="addToCart(prod)">
+          {{'buttons.buy' | translate}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="header">Most popular products</h2>
+ 	<div class="product-display-grid row">
+      <div class="col s12 m4 l2" ng-repeat="prod in mostWanted">
+        <div class="product-show-case card-pane">
+          <div class="padded-part">
+            <div class="product-image card-pane">
+              <img ng-src="{{prod && prod.image_url || ''}}">
+            </div>
+            <div class="product-details">
+              <div class="product-manufacturer black-text">{{prod.manufacturer}}</div> 
+              <div class="product-model">{{prod.model}}</div>
+              <div class="product-price">{{prod.price | currency:"&euro;"}}</div>
+              <p class="product-description">{{prod.description}}</p>
+            </div>
+          </div>
+          <div class="buy-action waves-effect waves-light btn" ng-click="addToCart(prod)">
+            {{'buttons.buy' | translate}}
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

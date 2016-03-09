@@ -1,0 +1,120 @@
+
+
+	<div class="col s12 admin-menu">
+	  <ul class="tabs z-depth-1">
+	    <li class="tab col s3"><a ng-click="onProductsActive()" class="active" href="#products-tab">{{ 'admin.menu.products' | translate }}</a></li>
+	    <li class="tab col s3"><a href="#categories-tab">{{ 'admin.menu.categories' | translate }}</a></li>
+	    <li class="tab col s3"><a href="#orders-tab">{{ 'admin.menu.orders' | translate }}</a></li>
+	    <li class="tab col s3"><a href="#users-tab">{{ 'admin.menu.users' | translate }}</a></li>
+	  </ul>
+	</div>
+	<div class="container management-view">
+		<!--______________PRODUCTS TAB__________________-->
+		<div id="products-tab" class="col s12 l6 m6">
+				<div class="card-panel">
+					<div class="card-content grey-text text-darken-4">
+						<h3>{{'admin.products.new' | translate}}</h3>
+						<form class="col s12">
+							<div class="row">
+								<div class="col file-upload-field m5 l4 s12">
+									<div class="picture-container" ngf-select="upload($file)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+										<img class="product-picture" src="{{newProduct.image_url}}"></img>
+										<div class="file-upload-prompt">{{'admin.products.new.upload' | translate}}</div>
+									</div>
+								</div>	
+								<div class="col s12 m7 l8">
+								    <div class="input-field">
+								      	<input id="manufacturer" type="text" ng-model="newProduct.manufacturer">
+								      	<label for="manufacturer">{{'admin.products.new.manufacturer' | translate }}</label>
+
+								    </div>
+								    <div class="input-field">
+								    	<input id="product_model" type="text" ng-model="newProduct.model">
+								    	<label for="product_model">{{ 'admin.products.new.model' | translate }}</label>
+								    </div>
+								</div>						   
+						  	</div>
+						  	<div class="row">
+						  		<div class="input-field col s12 l12 m12">
+							    	<textarea id="description" class="materialize-textarea" ng-model="newProduct.description"></textarea>
+						          	<label for="description">{{ 'admin.products.new.description' | translate }}</label>
+							    </div>
+							</div>
+						  	<div class="row">
+							  	<div class="input-field select-field col s12">
+								    <select id="category-select" ng-options="cat.name for cat in categories" ng-model="newProduct.category" ng-change="onCategorySelect(cat)">
+								      	<option value="" disabled selected>{{ 'admin.products.new.select.category' | translate }}</option>
+								    </select>
+
+								    <label for="category-select">{{'admin.products.new.category' | translate}}</label>
+							  	</div>
+							</div>
+							
+							<!--______Attributes of the new product depending on selected category_____-->
+							<h5>{{ 'admin.products.new.attributes' | translate }}</h2>
+							<section id="new-product-attributes">
+								<div class="row">
+									<div class="input-field col s12 l6 m6" ng-repeat="att in newProduct.category.attributes">
+								    	<input ng-if="att.type === 'number'" type="number" ng-model="newProduct.attributes[att.id]"/>
+								    	<input ng-if="att.type === 'string'" type="text" ng-model="newProduct.attributes[att.id]"/>
+
+								    	<select ng-if="att.type === 'select'" ng-model="newProduct.attributes[att.id]">
+								    		<option ng-repeat="opt in att.options" value="{{opt.code}}">{{opt.name | translate}}</option>
+								    	</select>
+								    	<label>{{att.name | translate}}</label>
+								    </div>
+								</div>
+							</section>
+						</form>
+						<a class="waves-effect waves-light btn" id="add-product" ng-click="saveProduct(newProduct)">{{'buttons.save' | translate}}</a>
+					</div>
+				</div>
+		</div>
+		
+		<!--______________CATEGORIES TAB__________________-->
+
+		<div id="categories-tab" class="col s12">
+			<div class="new-category card-panel" ng-click="addCategory()">{{'admin.categories.new' | translate}}</div>
+			<div class="row">
+			<!-- Category panel -->
+				<div class="col s12 m6 l6" ng-repeat="cat in categories">
+					<div class="card-panel">
+						<div class="card-content grey-text text-darken-4">
+							<div class="row">
+				              	<div class="input-field col s12 m5 l5">
+							    	<input type="text" ng-model="cat.name">
+							    	<label ng-if="cat.name" class="active">{{ 'admin.categories.new.name' | translate }}</label>
+							    	<label ng-if="!cat.name">{{ 'admin.categories.new.name' | translate }}</label>
+							    </div>
+							</div>
+				            <div class="cat-attributes">
+								<span class="cat-attr" ng-repeat="at in cat.attributes">{{at.unique_name | translate}} 
+									<a class="remove-attr" ng-click="removeAttributeFromCategory(cat, at)">x</a>
+								</span>
+							</div>
+							<div class="row">
+								<div class="input-field select-field col s12 m5 l5">
+									<select ng-options="attribute.unique_name | translate disable when cat.attributes.indexOf(attribute) >= 0 for attribute in availableAttributes track by attribute.code" class="add-attribute" ng-change="cat.attributes.push(cat.newAttribute)" ng-model="cat.newAttribute">
+										<option value="" disabled selected>{{'attributes.add' | translate}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="row buttons">
+								<a ng-if="!cat.synchronizing" class="waves-effect waves-light btn" ng-click="saveCategory(cat)">{{'buttons.save' | translate}}</a>
+								<a ng-if="cat.synchronizing" class="waves-effect waves-light btn disabled">{{'buttons.save' | translate}}</a>
+							</div>
+			            </div>
+						
+					</div>
+				</div>
+			</div>
+	</div>
+
+		<div id="orders-tab" class="col s12">Test 3</div>
+		<div id="users-tab" class="col s12">
+			<div class="user-entry" ng-repeat="user in users">
+				{{user.local.email}}
+			</div>
+		</div>
+	</div>
+
