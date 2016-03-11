@@ -23,7 +23,6 @@ module.exports = function(passport) {
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         User.findById(id, function(err, user) {
-            console.log('pow:'+ user.groups);
             user.local = _.omit(user.local, 'password');
             done(err, user);
         });
@@ -100,6 +99,7 @@ module.exports = function(passport) {
         User.findOne({ 'local.email' :  email }, function(err, user) {
             // if there are any errors, return the error before anything else
             if (err) {
+                console.log('noee')
                 return done(err);
             }
 
